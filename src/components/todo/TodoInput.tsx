@@ -19,7 +19,7 @@ const TodoInput = ({ onAddTodo }: TodoInputProps) => {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") {
+                        if (e.key === "Enter" && !e.nativeEvent.isComposing) {
                             onAddTodo(text);
                             setText("");
                         }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import Header from "../layout/Header";
 import TodoFilter from "./TodoFilter";
 import TodoInput from "./TodoInput";
@@ -6,8 +6,15 @@ import type { TodoProps } from "../../types/todo";
 import TodoList from "./TodoList";
 
 const TodoContainer = () => {
-    const [todos, setTodos] = useState<TodoProps[]>([]);
+    const [todos, setTodos] = useState<TodoProps[]>(() => {
+        const savedTodos = localStorage.getItem("todos");
+        return savedTodos ? JSON.parse(savedTodos) : [];
+    });
     const [filter, setFilter] = useState<"all" | "inProgress" | "done">("all");
+
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos])
 
     // 할 일 추가
     const addTodo = (text: string) => {
@@ -16,6 +23,8 @@ const TodoContainer = () => {
             title: text,
             status: "inProgress"
         };
+
+        if (text === "") return false;
 
         setTodos([
             ...todos,
@@ -63,6 +72,7 @@ const TodoContainer = () => {
 
         return todo.status === filter;
     })
+
 
     return (
         <div>
