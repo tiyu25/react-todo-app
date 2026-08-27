@@ -1,16 +1,18 @@
 interface ButtonStyleProps {
-    colorVariant?: "red" | "navy";
     className?: string;
     children: React.ReactNode;
+    onClick?: () => void;
+    icon?: string;
 }
 
-const ButtonStyle1 = ({ colorVariant, className, children }: ButtonStyleProps) => {
-    const colorVariantClass = colorVariant === "red" ? "text-red1" : "text-navy1";
+const ButtonStyle1 = ({ className, children, onClick, icon }: ButtonStyleProps) => {
 
     return (
         <button
-            className={`flex items-center text-sm ${colorVariantClass} ${className}`}
+            className={`flex gap-1 items-center text-sm cursor-pointer ${className ?? ""}`}
+            onClick={onClick}
         >
+            <img src={icon} alt="" />
             {children}
         </button>
     )

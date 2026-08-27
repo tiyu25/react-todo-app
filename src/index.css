@@ -121,7 +121,6 @@
 
 
 
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -131,4 +130,12 @@ body {
 
 .font_gmarket {
   font-family: var(--font-gmarket);
+}
+
+.scrollbar_hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar_hide::-webkit-scrollbar {
+    display: none;
 }
